@@ -1,0 +1,17 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+yapf = "*"
+pipenv-setup = "*"
+pylint = "*"
+
+[packages]
+numpy = "*"
+attrs = "*"
+rigid-body-dynamics = {editable = true,path = "."}
+
+[requires]
+python_version = "3.8"
