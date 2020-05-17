@@ -3,7 +3,7 @@ Tests for the spatial_types.py file.
 """
 import unittest
 import numpy as np
-from rigid_body_dynamics.spatial_types import (Frame, SpatialVector, Twist)
+from rigid_body_dynamics.spatial_types import (Frame, Transform, SpatialVector, Twist)
 
 
 class TestFrame(unittest.TestCase):
@@ -27,6 +27,30 @@ class TestFrame(unittest.TestCase):
         frame1 = Frame()
         frame2 = Frame(frame1.get_id())
         self.assertTrue(frame1 == frame2)
+
+class TestQuaternion(unittest.TestCase):
+    """
+    Tests the Quaternion class.
+    """
+    def test_create_quaternion(self):
+        Quaternion(data=np.array(0.5, 0.5, 0.5, 0.5))
+
+class TestTransform(unittest.TestCase):
+    """
+    Tests the Transform class.
+    """
+    def test_create_transform(self):
+        """
+        Test constructor.
+        """
+        frame1 = Frame()
+        frame2 = Frame()
+        trans = np.array([1,2,3])
+        quat = Quaternion.identity()
+        transform = Transform(translation=trans, quaternion=quaternion, frame_from=frame1, frame_to=frame2)
+        self.assertEqual(trans, transform.translation())
+        self.assertEqual(quat, transform.quaternion())
+        
 
 
 class TestSpatialVector(unittest.TestCase):

@@ -164,3 +164,74 @@ class SpatialMomentum(SpatialVector):
             other, SpatialMomentum
         ), "Addition is only defined between two SpatialMomenta"
         return SpatialMomentum(self._data + other.data(), frame=self.frame)
+
+@attrs
+class Quaternion:
+    """
+    A rotation from one frame to another.
+    """    
+    _data = attrib()
+    
+    @property
+    def data(self):
+        return self._data
+    
+    @property
+    def w(self):
+        return self._data[0]
+    
+    @property
+    def x(self):
+        return self._data[1]
+    
+    @property
+    def y(self):
+        return self._data[2]
+    
+    @property
+    def z(self):
+        return self._data[3]
+    
+    @property
+    def xyz(self):
+        return self.data[1:]
+    
+    def mat(self):
+        w = self.w()
+        x = self.x()
+        y = self.y()
+        z = self.z()
+        return np.array(
+            [1-2*(y**2 + z**2),     2*(x*y - w*z),    2*(x*z + w*y)],
+            [    2*(y*x + w*z), 1-2*(x**2 + z**2),    2*(y*z - w*x)],
+            [    2*(z*x - w*y),     2*(z*y + w*x), 1-2*(x**2 + y**2)]
+        )
+        
+    def conj(self):
+        data_new = self._data.copy()
+        data_new[1:] *= -1
+        return Quaternion(data=data_new)
+    
+    @classmethod
+    def identity(cls):
+        return cls(data=np.array([1., 0., 0., 0.]))
+
+@attrs
+class Transform:
+    """
+    A transform from one frame into another.
+    """
+    _translation = attrib()
+    _quaternion = attrib()
+    _from = attrib()
+    _to = attrib()
+    
+    def translation(self):
+        return self._translation
+    
+    def quaternion(self):
+        return self._quaternion
+    
+    def mat(self):
+        return np.blk([[self._quaternion.mat(), _translation.data()[:,np.newaxis]],
+                       [         np.zeros(1,3),                               1.0]])

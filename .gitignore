@@ -127,3 +127,25 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# CMake .gitignore (https://github.com/github/gitignore/blob/master/CMake.gitignore)
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+CMakeScripts
+Testing
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
+
+# Build directory
+build/
+
+# VSCode
+.vscode
+
+# For MacOSX
+.DS_Store

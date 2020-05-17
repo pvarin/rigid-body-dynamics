@@ -1,5 +1,0 @@
-{
-    "python.formatting.provider": "yapf",
-    "python.pythonPath": "/Users/patrick/.local/share/virtualenvs/rigid-body-dynamics-jeDEUpXO/bin/python",
-    "python.linting.pylintArgs": ["--generate-members"],
-}
